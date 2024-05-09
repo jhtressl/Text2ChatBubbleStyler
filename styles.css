@@ -1,8 +1,81 @@
-/*
-
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
-
-If your plugin does not need CSS, delete this file.
-
-*/
+/* QuickReset to ensure the style doesn't inherit unwanted margins or box settings */
+* {
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  /* General chat container styling */
+  .chat {
+    --rad: 20px;
+    --rad-sm: 3px;
+    font: 16px/1.5 sans-serif;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 700px;
+    margin: auto;
+    background-color: #121212; /* Dark background for the chat area */
+    color: #ccc; /* Light text color for readability in dark mode */
+  }
+  
+  /* General message styling */
+  .msg {
+    position: relative;
+    max-width: 75%;
+    padding: 10px 15px; /* Increased padding */
+    margin: 10px 0; /* Added vertical margin for better spacing */
+  }
+  
+  /* Styling for sent messages */
+  .msg.sent {
+    border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+    background: #0d47a1; /* Darker blue for sent messages */
+    color: #fff; /* White text for readability */
+    margin-left: auto; /* Aligns messages to the right */
+  }
+  
+  /* Styling for received messages */
+  .msg.rcvd {
+    border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+    background: #263238; /* Dark gray for received messages */
+    color: #e0e0e0; /* Lighter gray text for contrast */
+    margin-right: auto; /* Aligns messages to the left */
+  }
+  
+  /* Enhancing the radius for the first message in the group */
+  .msg.sent:first-child,
+  .msg.rcvd+.msg.sent {
+    border-top-right-radius: var(--rad);
+  }
+  
+  .msg.rcvd:first-child,
+  .msg.sent+.msg.rcvd {
+    border-top-left-radius: var(--rad);
+  }
+  
+  /* Time stamp styling */
+  .msg::before {
+    content: attr(data-time);
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 100%;
+    color: #888;
+    white-space: nowrap;
+    display: none; /* Hidden by default */
+  }
+  
+  .msg.sent::before {
+    right: 15px;
+  }
+  
+  .msg.rcvd::before {
+    left: 15px;
+  }
+  
+  /* Display time for the first message in each group */
+  .msg:first-child::before,
+  .msg.sent+.msg.rcvd::before,
+  .msg.rcvd+.msg.sent::before {
+    display: block; /* Shows time for first message in group */
+  }
+  
